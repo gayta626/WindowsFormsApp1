@@ -38,17 +38,7 @@ namespace WindowsFormsApp1
 
         private void dgvMonHoc_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int i = e.RowIndex;
             
-            if(i >= 0)
-            {
-                txtMaMH.Text = dgvMonHoc.Rows[i].Cells["MAMH"].Value.ToString();
-                txtTenMH.Text = dgvMonHoc.Rows[i].Cells["TENMH"].Value.ToString();
-                txtTietLT.Text = dgvMonHoc.Rows[i].Cells["SOTIET_LT"].Value.ToString();
-                txtTietTH.Text = dgvMonHoc.Rows[i].Cells["SOTIET_TH"].Value.ToString();
-                mode = 2;
-
-            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -109,6 +99,21 @@ namespace WindowsFormsApp1
         private void btnCLose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgvMonHoc_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+
+            if (i >= 0)
+            {
+                txtMaMH.Text = dgvMonHoc.Rows[i].Cells["MAMH"].Value.ToString();
+                txtTenMH.Text = dgvMonHoc.Rows[i].Cells["TENMH"].Value.ToString();
+                txtTietLT.Text = dgvMonHoc.Rows[i].Cells["SOTIET_LT"].Value.ToString();
+                txtTietTH.Text = dgvMonHoc.Rows[i].Cells["SOTIET_TH"].Value.ToString();
+                mode = 2;
+
+            }
         }
     }
 }

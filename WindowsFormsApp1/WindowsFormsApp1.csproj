@@ -54,6 +54,18 @@
     <Compile Include="frmDangKyLTC.Designer.cs">
       <DependentUpon>frmDangKyLTC.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMoLTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMoLTC.Designer.cs">
+      <DependentUpon>frmMoLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDangKyTK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDangKyTK.Designer.cs">
+      <DependentUpon>frmDangKyTK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +90,18 @@
     <Compile Include="frmMonHoc.Designer.cs">
       <DependentUpon>frmMonHoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNhapDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNhapDiem.Designer.cs">
+      <DependentUpon>frmNhapDiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPhieuDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhieuDiem.Designer.cs">
+      <DependentUpon>frmPhieuDiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSinhVien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +112,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmDangKyLTC.resx">
       <DependentUpon>frmDangKyLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMoLTC.resx">
+      <DependentUpon>frmMoLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDangKyTK.resx">
+      <DependentUpon>frmDangKyTK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -101,6 +131,12 @@
     <EmbeddedResource Include="frmMonHoc.resx">
       <DependentUpon>frmMonHoc.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmNhapDiem.resx">
+      <DependentUpon>frmNhapDiem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPhieuDiem.resx">
+      <DependentUpon>frmPhieuDiem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSinhVien.resx">
       <DependentUpon>frmSinhVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +148,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -125,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\360_F_1093127632_vHdunjb8LAhgMZOagSQdfJgrZoatRXlJ.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,6 +17,12 @@ namespace WindowsFormsApp1
     public partial class frmLop : Form
     {
         int mode = 0; // 0: k làm gì, 1: thêm, 2: sửa
+        Stack<string> undoStack = new Stack<string>();
+        static string oldMaLop ="";
+        static string oldTenLop = "";
+        static string oldKhoaHoc = "";
+        static string oldMaKhoa = "";
+        
         public frmLop()
         {
             InitializeComponent();
@@ -39,21 +45,23 @@ namespace WindowsFormsApp1
             da.Fill(dt);
 
             dataGridViewLop.DataSource = dt;
+            
         }
 
+        void updateUndoBtn()
+        {
+            btnUndo.Enabled = undoStack.Count > 0;
+        }
         private void frmLop_Load(object sender, EventArgs e)
         {
             LoadData();
             this.Dock = DockStyle.Fill;
+            updateUndoBtn();
         }
 
         private void dataGridViewLop_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtMaLop.Text = dataGridViewLop.CurrentRow.Cells["MALOP"].Value.ToString();
-            txtTenLop.Text = dataGridViewLop.CurrentRow.Cells["TENLOP"].Value.ToString();
-            txtKhoaHoc.Text = dataGridViewLop.CurrentRow.Cells["KHOAHOC"].Value.ToString();
-            cbKhoa.Text = dataGridViewLop.CurrentRow.Cells["MAKHOA"].Value.ToString();
-            mode = 2;
+            
         }
 
         private void cbKhoa_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,6 +71,7 @@ namespace WindowsFormsApp1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            
             txtMaLop.Text = "";
             txtTenLop.Text = "";
             txtKhoaHoc.Text = "";
@@ -73,6 +82,9 @@ namespace WindowsFormsApp1
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            string sqlUndo = "insert into LOP(MALOP, TENLOP ,KHOAHOC,MAKHOA) values(N'" + txtMaLop.Text + "', N'" + txtTenLop.Text + "',N'" + txtKhoaHoc.Text + "', N'" + cbKhoa.Text + "')";
+            undoStack.Push(sqlUndo);
+            updateUndoBtn();
             SqlCommand cmd = new SqlCommand("delete from LOP where MALOP = @malop", conn);
             conn.Open();
             cmd.Parameters.AddWithValue("@malop", txtMaLop.Text);
@@ -84,22 +96,15 @@ namespace WindowsFormsApp1
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if(txtMaLop.Text == "")
-            {
-                MessageBox.Show("Mã lớp không được để trống");
-                txtMaLop.Focus();
-                return;
-            }
-            if(txtTenLop.Text == "")
-            {
-                MessageBox.Show("Tên lớp không được để trống");
-                txtTenLop.Focus();
-                return;
-            }
-            conn.Open();
+            
+            
 
             if(mode == 1)
             {
+                string sqlUndo = "delete from LOP where MALOP = '" + txtMaLop.Text + "'";
+                undoStack.Push(sqlUndo);
+                updateUndoBtn();
+                conn.Open();
                 SqlCommand check = new SqlCommand("select count(*) from LOP where MALOP = @malop", conn);
                 check.Parameters.AddWithValue("@malop", txtMaLop.Text);
                 int count = (int)check.ExecuteScalar();
@@ -118,12 +123,19 @@ namespace WindowsFormsApp1
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Thêm lớp thành công");
+                LoadData();
+                conn.Close();
 
 
             }
 
             else if(mode == 2)
             {
+                string sqlUndo = "update LOP set TENLOP =N'" + oldTenLop + "',KHOAHOC = N'" + oldKhoaHoc + "', MAKHOA = N'" + oldMaKhoa + "' where MALOP = N'" + oldMaLop + "'";
+                undoStack.Push(sqlUndo);
+                updateUndoBtn();
+                conn.Open();
+
                 SqlCommand cmd = new SqlCommand(
                 "UPDATE LOP SET TENLOP=@tenlop, KHOAHOC=@khoahoc, MAKHOA=@makhoa WHERE MALOP=@malop", conn);
 
@@ -134,10 +146,11 @@ namespace WindowsFormsApp1
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cập nhật thành công");
+                LoadData();
+                conn.Close();
             }
 
-            conn.Close();
-            LoadData();
+            
             mode = 0;
 
         }
@@ -151,15 +164,39 @@ namespace WindowsFormsApp1
         
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            LoadData();
+            
+            string sql = undoStack.Pop();
+            updateUndoBtn();
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                LoadData();
 
-            txtMaLop.Text = "";
-            txtTenLop.Text = "";
-            txtKhoaHoc.Text = "";
-            cbKhoa.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
 
-            mode = 0;
+        }
 
+        private void dataGridViewLop_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtMaLop.Text = dataGridViewLop.CurrentRow.Cells["MALOP"].Value.ToString();
+            txtTenLop.Text = dataGridViewLop.CurrentRow.Cells["TENLOP"].Value.ToString();
+            txtKhoaHoc.Text = dataGridViewLop.CurrentRow.Cells["KHOAHOC"].Value.ToString();
+            cbKhoa.Text = dataGridViewLop.CurrentRow.Cells["MAKHOA"].Value.ToString();
+            oldMaLop = txtMaLop.Text;
+            oldTenLop = txtTenLop.Text;
+            oldKhoaHoc = txtKhoaHoc.Text;
+            oldMaKhoa = cbKhoa.Text;
+            mode = 2;
         }
     }
 }

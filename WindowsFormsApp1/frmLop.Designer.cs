@@ -57,6 +57,7 @@
             this.dataGridViewLop.Name = "dataGridViewLop";
             this.dataGridViewLop.Size = new System.Drawing.Size(800, 200);
             this.dataGridViewLop.TabIndex = 0;
+            this.dataGridViewLop.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLop_CellClick);
             this.dataGridViewLop.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLop_CellContentClick);
             // 
             // lbMaLop
@@ -172,7 +173,7 @@
             this.btnUndo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUndo.Location = new System.Drawing.Point(346, 12);
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(75, 23);
+            this.btnUndo.Size = new System.Drawing.Size(91, 23);
             this.btnUndo.TabIndex = 3;
             this.btnUndo.Text = "Phục hồi";
             this.btnUndo.UseVisualStyleBackColor = true;

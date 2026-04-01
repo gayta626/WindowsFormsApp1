@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-
+            lbLogin.Text = "Login";
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -51,8 +51,11 @@ namespace WindowsFormsApp1
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            string role = "";
+
             if (rbSinhVien.Checked)
             {
+                role = "SV";
                 SqlConnection conn = new SqlConnection(
                     "Data Source=.;Initial Catalog=QLDSV_HTC;Integrated Security=True");
 
@@ -70,9 +73,10 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show("Đăng nhập SV thành công");
 
-                    frmMain f = new frmMain("SV");
+                    frmMain f = new frmMain(role,txtUser.Text);
                     f.Show();
                     this.Hide();
+                    
                 }
                 else
                 {
@@ -94,9 +98,20 @@ namespace WindowsFormsApp1
                 {
                     conn.Open();
 
-                    MessageBox.Show("Đăng nhập KHOA thành công");
+                    
 
-                    frmMain f = new frmMain("KHOA");
+                    SqlCommand cmd = new SqlCommand(
+                        "SELECT IS_MEMBER('PGV'), IS_MEMBER('KHOA')", conn);
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    if (rd.Read())
+                    {
+                        if ((int)rd[0] == 1) role = "PGV";
+                        else if ((int)rd[1] == 1) role = "KHOA";
+                    }
+
+                    frmMain f = new frmMain(role, txtUser.Text);
                     f.Show();
                     this.Hide();
                 }

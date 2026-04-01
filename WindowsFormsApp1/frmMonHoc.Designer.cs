@@ -57,6 +57,7 @@
             this.dgvMonHoc.Name = "dgvMonHoc";
             this.dgvMonHoc.Size = new System.Drawing.Size(858, 238);
             this.dgvMonHoc.TabIndex = 0;
+            this.dgvMonHoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMonHoc_CellClick);
             this.dgvMonHoc.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMonHoc_CellContentClick);
             // 
             // panel1

@@ -13,161 +13,107 @@ namespace WindowsFormsApp1
 {
     public partial class frmDangKyLTC : Form
     {
+        
         public frmDangKyLTC()
         {
             InitializeComponent();
         }
         SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=QLDSV_HTC;Integrated Security=True");
-        int mode = 0;
-
-        void loadData()
+        void UpdateDangKyBtn()
         {
-            string sql = "select *from LOPTINCHI";
-            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-
-            da.Fill(dt);
-            dgvLTC.DataSource = dt;
+            btnDangKy.Enabled = dgvLTC.CurrentRow != null
+                                && !dgvLTC.CurrentRow.IsNewRow;
         }
-        private void dgvLTC_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dgvLTC_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int i = e.RowIndex;
-
-            if(i >= 0)
-            {
-                
-                txtNienKhoa.Text = dgvLTC.Rows[i].Cells["NIENKHOA"].Value.ToString();
-                cbHocKy.Text = dgvLTC.Rows[i].Cells["HOCKY"].Value.ToString();
-                txtMaMH.Text = dgvLTC.Rows[i].Cells["MAMH"].Value.ToString();
-                txtNhom.Text = dgvLTC.Rows[i].Cells["NHOM"].Value.ToString();
-                txtMaGV.Text = dgvLTC.Rows[i].Cells["MAGV"].Value.ToString();
-                txtMaKhoa.Text = dgvLTC.Rows[i].Cells["MAKHOA"].Value.ToString();
-                txtSoSV.Text = dgvLTC.Rows[i].Cells["SOSVTOITHIEU"].Value.ToString();
-                cbSituation.Text = dgvLTC.Rows[i].Cells["HUYLOP"].Value.ToString();
-                mode = 2; // Sửa
-
-            }
+            UpdateDangKyBtn();
         }
 
         private void frmDangKyLTC_Load(object sender, EventArgs e)
         {
-            loadData();
             this.Dock = DockStyle.Fill;
+            txtHoTen.Enabled = false;
+            txtMaLop.Enabled = false;
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void btnTimSV_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            txtNienKhoa.Text = "";
-            cbHocKy.Text = "";
-            txtMaMH.Text = "";
-            txtNhom.Text = "";
-            txtMaGV.Text = "";
-            txtMaKhoa.Text = "";
-            txtSoSV.Text = "";
-            cbSituation.Text = "";
-            txtNienKhoa.Focus();
-
-            mode = 1; // Thêm 
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-        "Bạn có chắc muốn xóa không?",
-        "Xác nhận",
-        MessageBoxButtons.YesNo
-    );
-
-            if (result == DialogResult.No) return;
-
-            try
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand("sp_LTC_Delete", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                string mamh = dgvLTC.CurrentRow.Cells["MAMH"].Value.ToString();
-                int nhom = int.Parse(dgvLTC.CurrentRow.Cells["NHOM"].Value.ToString());
-
-                cmd.Parameters.AddWithValue("@MAMH", txtMaMH.Text);
-                cmd.Parameters.AddWithValue("@NHOM", txtNhom.Text);
-
-                cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Xóa thành công");
-
-                loadData(); // reload lại grid
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("Select HO+ ' ' +TEN as HOTEN, MALOP from SINHVIEN where MASV = @masv",conn);
+            cmd.Parameters.AddWithValue("@masv", txtMaSV.Text);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read()){
+                txtHoTen.Text = reader["HOTEN"].ToString();
+                txtMaLop.Text = reader["MALOP"].ToString();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Không tồn tại");
             }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if(mode == 1)
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_LTC_Insert", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                
-                cmd.Parameters.AddWithValue("@NIENKHOA",txtNienKhoa.Text);
-                cmd.Parameters.AddWithValue("@HOCKY", cbHocKy.Text);
-                cmd.Parameters.AddWithValue("@MAMH", txtMaMH.Text);
-                cmd.Parameters.AddWithValue("@NHOM", txtNhom.Text);
-                cmd.Parameters.AddWithValue("@MAGV", txtMaGV.Text);
-                cmd.Parameters.AddWithValue("@MAKHOA", txtMaKhoa.Text);
-                cmd.Parameters.AddWithValue("@SOSVTOITHIEU", txtSoSV.Text);
-                cmd.Parameters.AddWithValue("@HUYLOP", cbSituation.Text);
-
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Thêm lớp tín chỉ thành công");
-                loadData();
-                
-            }
-
-            else if(mode == 2)
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_LTC_Update", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MALTC", txtMaLTC.Text);
-                cmd.Parameters.AddWithValue("@NIENKHOA", txtNienKhoa.Text);
-                cmd.Parameters.AddWithValue("@HOCKY", cbHocKy.Text);
-                cmd.Parameters.AddWithValue("@MAMH", txtMaMH.Text);
-                cmd.Parameters.AddWithValue("@NHOM", txtNhom.Text);
-                cmd.Parameters.AddWithValue("@MAGV", txtMaGV.Text);
-                cmd.Parameters.AddWithValue("@MAKHOA", txtMaKhoa.Text);
-                cmd.Parameters.AddWithValue("@SOSVTOITHIEU", txtSoSV.Text);
-                cmd.Parameters.AddWithValue("@HUYLOP", cbSituation.Text);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Cập nhật thành công !");
-                loadData();
-            }
-
             conn.Close();
-            mode = 0;
         }
 
-        private void BtnClose_Click(object sender, EventArgs e)
+        private void btnFilter_Click(object sender, EventArgs e)
         {
-            this.Close();
+           
+            SqlCommand cmd = new SqlCommand("sp_LTC_Filter", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@NIENKHOA", txtNienKhoa.Text);
+            cmd.Parameters.AddWithValue("@HOCKY", int.Parse(txtHocKy.Text));
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            dgvLTC.DataSource = dt;
         }
 
-        private void txtMaLTC_TextChanged(object sender, EventArgs e)
+        private void btnDangKy_Click(object sender, EventArgs e)
         {
-            txtMaLTC.ReadOnly = true;
+            if (dgvLTC.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn lớp tín chỉ!");
+                return;
+            }
+
+            int i = dgvLTC.CurrentRow.Index;
+            string maltc = dgvLTC.Rows[i].Cells["MALTC"].Value.ToString();
+
+            DialogResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng kí lớp tín chỉ có mã: " + maltc + " không?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("sp_DangKy", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@MASV", txtMaSV.Text);
+                    cmd.Parameters.AddWithValue("@MALTC", maltc);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Đăng ký thành công");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+
         }
     }
 }

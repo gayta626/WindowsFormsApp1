@@ -69,6 +69,7 @@
             this.dgvLop.Name = "dgvLop";
             this.dgvLop.Size = new System.Drawing.Size(983, 150);
             this.dgvLop.TabIndex = 0;
+            this.dgvLop.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLop_CellClick);
             this.dgvLop.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLop_CellContentClick);
             // 
             // dgvSinhVien
@@ -78,6 +79,7 @@
             this.dgvSinhVien.Name = "dgvSinhVien";
             this.dgvSinhVien.Size = new System.Drawing.Size(983, 168);
             this.dgvSinhVien.TabIndex = 1;
+            this.dgvSinhVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSinhVien_CellClick);
             this.dgvSinhVien.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSinhVien_CellContentClick);
             // 
             // lbMaSV

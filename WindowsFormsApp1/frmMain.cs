@@ -13,10 +13,12 @@ namespace WindowsFormsApp1
     public partial class frmMain : Form
     {
         string role;
-        public frmMain(string r)
+        string masv;
+        public frmMain(string r, string msv)
         {
             InitializeComponent();
             role = r;
+            masv = msv;
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -27,20 +29,22 @@ namespace WindowsFormsApp1
         private void frmMain_Load(object sender, EventArgs e)
         {
             lbHelloUser.Text = "Xin chào, " + role;
-            //if(role == "SV")
-            //{
-            //    lớpToolStripMenuItem.Enabled = false;
-            //    sinhVienToolStripMenuItem.Enabled = false;
-            //    mônHọcToolStripMenuItem1.Enabled = false;
-            //    nhậpĐiToolStripMenuItem.Enabled = false;
-            //    mởLớpTínChỉToolStripMenuItem.Enabled = false;
-            //}
-            //else if(role == "KHOA")
-            //{
-            //    lớpToolStripMenuItem.Enabled = false;
-            //    sinhVienToolStripMenuItem.Enabled = false;
-            //    mởLớpTínChỉToolStripMenuItem.Enabled = false;
-            //}
+            if (role == "SV")
+            {
+                lớpToolStripMenuItem.Enabled = false;
+                sinhVienToolStripMenuItem.Enabled = false;
+                mônHọcToolStripMenuItem1.Enabled = false;
+                nhậpĐiToolStripMenuItem.Enabled = false;
+                mởLớpTínChỉToolStripMenuItem.Enabled = false;
+                tạoTàiKhoảnToolStripMenuItem.Enabled = false;
+            }
+            else if (role == "KHOA")
+            {
+                lớpToolStripMenuItem.Enabled = false;
+                sinhVienToolStripMenuItem.Enabled = false;
+                mônHọcToolStripMenuItem1.Enabled = false;
+                mởLớpTínChỉToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void lớpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,15 +77,56 @@ namespace WindowsFormsApp1
 
         private void nhậpĐiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmNhapDiem f = new frmNhapDiem();
+            f.MdiParent = this;
+            f.Show();
+            lbTitile.Hide();
         }
 
         private void mởLớpTínChỉToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            frmMoLTC f = new frmMoLTC();
+            f.MdiParent = this;
+            f.Show();
+            lbTitile.Hide();
+
+        }
+
+        private void tạoTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDangKyTK f = new frmDangKyTK(role);
+            f.MdiParent = this;
+            f.Show();
+            lbTitile.Hide();
+        }
+
+        private void đăngKýLớpTínChỉToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             frmDangKyLTC f = new frmDangKyLTC();
             f.MdiParent = this;
             f.Show();
+            lbTitile.Hide();
+        }
 
+        private void xemĐiểmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPhieuDiem f = new frmPhieuDiem(masv);
+            f.MdiParent = this;
+            f.Show();
+            lbTitile.Hide();
+        }
+
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLogin f = new frmLogin();
+            f.Show();
+            this.Close();
+        }
+
+        private void thoátToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            
         }
     }
 }
