@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-        void LoadComboBox()
+        void loadNienKhoa()
         {
             SqlDataAdapter da = new SqlDataAdapter("select distinct NIENKHOA from LOPTINCHI", conn);
             DataTable dt = new DataTable();
@@ -32,7 +32,20 @@ namespace WindowsFormsApp1
 
             cbNienKhoa.DataSource = dt;
             cbNienKhoa.DisplayMember = "NIENKHOA";
+            cbNienKhoa.ValueMember = "NIENKHOA";
+            cbNienKhoa.SelectedIndex = -1;
             
+        }
+        void loadHocKy()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("select distinct HOCKY from LOPTINCHI", conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            cbHocKy.DataSource = dt;
+            cbHocKy.DisplayMember = "HOCKY";
+            cbHocKy.ValueMember = "HOCKY";
+            cbHocKy.SelectedIndex = -1;
         }
         private void btnFilter_Click(object sender, EventArgs e)
         {
@@ -76,13 +89,15 @@ namespace WindowsFormsApp1
 
         private void frmPhieuDiem_Load(object sender, EventArgs e)
         {
+            loadNienKhoa();
+            loadHocKy();
             if (System.ComponentModel.LicenseManager.UsageMode
         == System.ComponentModel.LicenseUsageMode.Designtime)
-                return; // ⭐ CHẶN DESIGNER
+                return; 
             lbXinChao.Text = "Xin chào " + masv;
             this.Dock = DockStyle.Fill;
             dgvPhieuDiem.ReadOnly = true;
-            //LoadComboBox();
+            
 
         }
     }

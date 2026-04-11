@@ -24,16 +24,38 @@ namespace WindowsFormsApp1
         {
 
         }
+        void loadNienKhoa()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("select distinct NIENKHOA from LOPTINCHI", conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
 
+            cbNienKhoa.DataSource = dt;
+            cbNienKhoa.DisplayMember = "NIENKHOA";
+            cbNienKhoa.ValueMember = "NIENKHOA";
+            cbNienKhoa.SelectedIndex = -1;
+        }
+        void loadHocKy()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("select distinct HOCKY from LOPTINCHI", conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            cbHocKy.DataSource = dt;
+            cbHocKy.DisplayMember = "HOCKY";
+            cbHocKy.ValueMember = "HOCKY";
+            cbHocKy.SelectedIndex = -1;
+        }
         void loadMonHoc()
         {
-            SqlDataAdapter da = new SqlDataAdapter("select MAMH from MONHOC", conn);
+            SqlDataAdapter da = new SqlDataAdapter("select MAMH,MAMH +'-'+TENMH as HIENTHI from MONHOC", conn);
             DataTable dt = new DataTable();
             da.Fill(dt);
 
             cbMaMH.DataSource = dt;
-            cbMaMH.DisplayMember = "MAMH";
-            
+            cbMaMH.DisplayMember = "HIENTHI";
+            cbMaMH.ValueMember = "MAMH";
+            cbMaMH.SelectedIndex = -1;
 
         }
         private void btnStart_Click(object sender, EventArgs e)
@@ -43,9 +65,9 @@ namespace WindowsFormsApp1
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("sp_GetSinhVienLTC", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@NIENKHOA", txtNienKhoa.Text);
-                cmd.Parameters.AddWithValue("@HOCKY", txtHocKy.Text);
-                cmd.Parameters.AddWithValue("@MAMH", cbMaMH.Text);
+                cmd.Parameters.AddWithValue("@NIENKHOA", cbNienKhoa.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@HOCKY", cbHocKy.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@MAMH", cbMaMH.SelectedValue.ToString());
                 cmd.Parameters.AddWithValue("@NHOM", txtNhom.Text);
                 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -172,6 +194,8 @@ else
         private void frmNhapDiem_Load(object sender, EventArgs e)
         {
             loadMonHoc();
+            loadHocKy();
+            loadNienKhoa();
             this.Dock = DockStyle.Fill;
         }
     }

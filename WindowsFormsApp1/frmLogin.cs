@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace WindowsFormsApp1
 {
@@ -39,6 +40,14 @@ namespace WindowsFormsApp1
 
         }
 
+        //string HashPassword(string pass)
+        //{
+        //    using (SHA256 sha = SHA256.Create())
+        //    {
+        //        byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(pass));
+        //        return BitConverter.ToString(bytes).Replace("-", "");
+        //    }
+        //}
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             lbLogin.Text = "Login";
@@ -55,13 +64,14 @@ namespace WindowsFormsApp1
 
             if (rbSinhVien.Checked)
             {
+                
                 role = "SV";
                 SqlConnection conn = new SqlConnection(
                     "Data Source=.;Initial Catalog=QLDSV_HTC;Integrated Security=True");
 
                 conn.Open();
 
-                string sql = "SELECT * FROM SINHVIEN WHERE MASV=@masv AND PASSWORD=@pass";
+                string sql = "SELECT * FROM SINHVIEN WHERE MASV=@masv AND PASSWORD= HASHBYTES('SHA2_256', @pass)";
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@masv", txtUser.Text);
@@ -121,6 +131,11 @@ namespace WindowsFormsApp1
                 }
             }
 
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

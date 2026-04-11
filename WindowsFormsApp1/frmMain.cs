@@ -13,12 +13,13 @@ namespace WindowsFormsApp1
     public partial class frmMain : Form
     {
         string role;
-        string masv;
+        string ma;
+        
         public frmMain(string r, string msv)
         {
             InitializeComponent();
             role = r;
-            masv = msv;
+            ma = msv;
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -28,7 +29,7 @@ namespace WindowsFormsApp1
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            lbHelloUser.Text = "Xin chào, " + role;
+            lbHelloUser.Text = "Xin chào, " + ma;
             if (role == "SV")
             {
                 lớpToolStripMenuItem.Enabled = false;
@@ -51,6 +52,8 @@ namespace WindowsFormsApp1
         {
             frmLop f = new frmLop();
             f.MdiParent = this; // mở trong main
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
         }
 
@@ -63,14 +66,18 @@ namespace WindowsFormsApp1
         {
             frmSinhVien f = new frmSinhVien();
             f.MdiParent = this;
-            f.Show();
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             lbTitile.Hide();
+            f.Show();
         }
 
         private void mônHọcToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmMonHoc f = new frmMonHoc();
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;   
             f.Show();
             lbTitile.Hide();
         }
@@ -79,14 +86,18 @@ namespace WindowsFormsApp1
         {
             frmNhapDiem f = new frmNhapDiem();
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
             lbTitile.Hide();
         }
 
         private void mởLớpTínChỉToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmMoLTC f = new frmMoLTC();
+            frmMoLTC f = new frmMoLTC(role);
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
             lbTitile.Hide();
 
@@ -96,22 +107,28 @@ namespace WindowsFormsApp1
         {
             frmDangKyTK f = new frmDangKyTK(role);
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
             lbTitile.Hide();
         }
 
         private void đăngKýLớpTínChỉToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmDangKyLTC f = new frmDangKyLTC();
+            frmDangKyLTC f = new frmDangKyLTC(role, ma);
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
             lbTitile.Hide();
         }
 
         private void xemĐiểmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPhieuDiem f = new frmPhieuDiem(masv);
+            frmPhieuDiem f = new frmPhieuDiem(ma);
             f.MdiParent = this;
+            f.TopLevel = false;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
             lbTitile.Hide();
         }
@@ -127,6 +144,25 @@ namespace WindowsFormsApp1
         {
             this.Close();
             
+        }
+
+        private void danhSáchLớpTinChỉToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Xfrm_DanhSachLTC xf = new Xfrm_DanhSachLTC(role,ma);
+            
+            xf.Show();
+        }
+
+        private void dSSinhViênĐăngKýLTCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            XfrmDanhSachSVDangKyLTC xf = new XfrmDanhSachSVDangKyLTC(role, ma);
+            xf.Show();
+        }
+
+        private void bảngĐiểmMônToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            XfrmBangDiem xf = new XfrmBangDiem(role, ma);
+            xf.Show();
         }
     }
 }

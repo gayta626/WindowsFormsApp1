@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.lbLogin = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.lbPassword = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.rbSinhVien = new System.Windows.Forms.RadioButton();
             this.rbGiangVien = new System.Windows.Forms.RadioButton();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +67,7 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(267, 20);
             this.txtPass.TabIndex = 3;
+            this.txtPass.UseSystemPasswordChar = true;
             this.txtPass.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // lbPassword
@@ -89,8 +91,19 @@
             this.panel1.Controls.Add(this.txtUser);
             this.panel1.Location = new System.Drawing.Point(129, 194);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(459, 259);
+            this.panel1.Size = new System.Drawing.Size(679, 259);
             this.panel1.TabIndex = 5;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(276, 207);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(98, 33);
+            this.btnLogin.TabIndex = 5;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // panel2
             // 
@@ -98,8 +111,9 @@
             this.panel2.Controls.Add(this.rbGiangVien);
             this.panel2.Location = new System.Drawing.Point(129, 74);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(459, 100);
+            this.panel2.Size = new System.Drawing.Size(679, 100);
             this.panel2.TabIndex = 6;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // rbSinhVien
             // 
@@ -127,25 +141,15 @@
             this.rbGiangVien.UseVisualStyleBackColor = true;
             this.rbGiangVien.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // btnLogin
-            // 
-            this.btnLogin.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(276, 207);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(98, 33);
-            this.btnLogin.TabIndex = 5;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // Form1
+            // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 642);
+            this.ClientSize = new System.Drawing.Size(1322, 642);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmLogin";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

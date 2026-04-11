@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.XtraEditors.Design;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WindowsFormsApp1
 {
@@ -24,20 +27,52 @@ namespace WindowsFormsApp1
         int mode = 0; // 1 thêm, 2 sửa
         string malop_dangchon = "";
 
+        string HashPassword(string pass)
+        {
+            using (SHA256 sha = SHA256.Create())
+            {
+                byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(pass));
+                return BitConverter.ToString(bytes).Replace("-", "");
+            }
+        }
         void UpdateUndoBtn()
         {
             btnUndo.Enabled = undoStack.Count > 0;
         }
         void LoadLop()
         {
-            string sql = "SELECT * FROM LOP";
-
-            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM LOP WHERE KHOAHOC = @khoahoc AND MAKHOA = @makhoa", conn);
+            cmd.Parameters.AddWithValue("@khoahoc", cbKhoaHocFilter.Text);
+            cmd.Parameters.AddWithValue("@makhoa", cbMaKhoaFilter.Text);
+            
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
             da.Fill(dt);
 
             dgvLop.DataSource = dt;
+        }
+        void LoadKhoaHoc()
+        {
+            SqlCommand cmd = new SqlCommand("select distinct KHOAHOC from LOP ", conn);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cbKhoaHocFilter.DataSource = dt;
+            cbKhoaHocFilter.DisplayMember = "KHOAHOC";
+            cbKhoaHocFilter.ValueMember = "KHOAHOC";
+        }
+        void LoadMaKhoa()
+        {
+            SqlCommand cmd = new SqlCommand("select distinct MAKHOA from LOP ", conn);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cbMaKhoaFilter.DataSource = dt;
+            cbMaKhoaFilter.DisplayMember = "MAKHOA";
+            cbMaKhoaFilter.ValueMember = "MAKHOA";
         }
         void LoadSinhVien(string malop)
         {
@@ -76,7 +111,8 @@ namespace WindowsFormsApp1
 
         private void frmSinhVien_Load(object sender, EventArgs e)
         {
-            LoadLop();
+            LoadMaKhoa();
+            LoadKhoaHoc();
             LoadSinhVien(malop_dangchon);
             this.Dock = DockStyle.Fill;
             UpdateUndoBtn();
@@ -119,8 +155,7 @@ namespace WindowsFormsApp1
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string sql = "INSERT INTO SINHVIEN(MASV, HO, TEN, PHAI, DIACHI, NGAYSINH, MALOP, DANGHIHOC, PASSWORD) VALUES (" +
-             "N'" + txtMaSV.Text + "', " +
+            string sql = "INSERT INTO SINHVIEN(MASV, HO, TEN, PHAI, DIACHI, NGAYSINH, MALOP, DANGHIHOC, PASSWORD) VALUES (" +"N'" + txtMaSV.Text + "', " +
              "N'" + txtHo.Text + "', " +
              "N'" + txtTen.Text + "', " +
              (cbSex.Text == "Nam" ? "0" : "1") + ", " +
@@ -160,7 +195,7 @@ namespace WindowsFormsApp1
                 undoStack.Push(sql);
                 UpdateUndoBtn();
                 SqlCommand cmd = new SqlCommand("insert into SINHVIEN(MASV, HO, TEN, PHAI, DIACHI, NGAYSINH, MALOP, DANGHIHOC, PASSWORD)" +
-                    " values(@masv, @ho, @ten, @phai,@diachi,@ngaysinh,@malop,@situation,@pass)", conn);
+                    " values(@masv, @ho, @ten, @phai,@diachi,@ngaysinh,@malop,@situation, HASHBYTES('SHA2_256',@pass))", conn);
                 cmd.Parameters.AddWithValue("@masv", txtMaSV.Text);
                 cmd.Parameters.AddWithValue("@ho", txtHo.Text);
                 cmd.Parameters.AddWithValue("@ten", txtTen.Text);
@@ -206,7 +241,7 @@ namespace WindowsFormsApp1
 
                 undoStack.Push(sql);
                 UpdateUndoBtn();
-                SqlCommand cmd = new SqlCommand("update SINHVIEN set HO =@ho, TEN = @ten, PHAI = @phai, DIACHI = @diachi, NGAYSINH = @ngaysinh, MALOP =@malop , DANGHIHOC= @situation, PASSWORD = @pass where MASV=@masv" , conn);
+                SqlCommand cmd = new SqlCommand("update SINHVIEN set HO =@ho, TEN = @ten, PHAI = @phai, DIACHI = @diachi, NGAYSINH = @ngaysinh, MALOP =@malop , DANGHIHOC= @situation, PASSWORD = HASHBYTES('SHA2_256',@pass) where MASV=@masv", conn);
                 cmd.Parameters.AddWithValue("@masv", txtMaSV.Text);
                 cmd.Parameters.AddWithValue("@ho", txtHo.Text);
                 cmd.Parameters.AddWithValue("@ten", txtTen.Text);
@@ -253,6 +288,7 @@ namespace WindowsFormsApp1
 
         private void dgvLop_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             int i = e.RowIndex;
 
             if (i >= 0)
@@ -267,6 +303,7 @@ namespace WindowsFormsApp1
 
         private void dgvSinhVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            btnAdd.Enabled = false;
             int i = e.RowIndex;
 
             if (i >= 0)
@@ -306,6 +343,26 @@ namespace WindowsFormsApp1
                 oldSituation = cbSituation.Text ;
                 oldPass = txtPass.Text;
             }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            LoadLop();
+            btnAdd.Enabled = true;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            btnAdd.Enabled = true;
+            txtMaSV.Text = "";
+            txtHo.Text = "";
+            txtTen.Text = "";
+            cbSex.Text = "";
+            txtDiaChi.Text = "";
+            
+            txtMaLop.Text = "";
+            cbSituation.Text = "";
+            txtPass.Text = "";
         }
     }
 }

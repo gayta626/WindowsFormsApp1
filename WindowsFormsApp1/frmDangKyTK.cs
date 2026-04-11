@@ -236,5 +236,10 @@ namespace WindowsFormsApp1
         {
             this.Close();
         }
+
+        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMonHoc));
             this.dgvMonHoc = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtTietTH = new System.Windows.Forms.TextBox();
@@ -45,6 +46,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMonHoc)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -52,10 +54,11 @@
             // 
             // dgvMonHoc
             // 
+            this.dgvMonHoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMonHoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMonHoc.Location = new System.Drawing.Point(12, 12);
+            this.dgvMonHoc.Location = new System.Drawing.Point(1, 77);
             this.dgvMonHoc.Name = "dgvMonHoc";
-            this.dgvMonHoc.Size = new System.Drawing.Size(858, 238);
+            this.dgvMonHoc.Size = new System.Drawing.Size(1349, 238);
             this.dgvMonHoc.TabIndex = 0;
             this.dgvMonHoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMonHoc_CellClick);
             this.dgvMonHoc.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMonHoc_CellContentClick);
@@ -70,9 +73,9 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 256);
+            this.panel1.Location = new System.Drawing.Point(1, 371);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(858, 100);
+            this.panel1.Size = new System.Drawing.Size(1349, 120);
             this.panel1.TabIndex = 2;
             // 
             // txtTietTH
@@ -81,6 +84,7 @@
             this.txtTietTH.Name = "txtTietTH";
             this.txtTietTH.Size = new System.Drawing.Size(232, 20);
             this.txtTietTH.TabIndex = 7;
+            this.txtTietTH.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTietTH_KeyPress);
             // 
             // txtTietLT
             // 
@@ -88,6 +92,7 @@
             this.txtTietLT.Name = "txtTietLT";
             this.txtTietLT.Size = new System.Drawing.Size(232, 20);
             this.txtTietLT.TabIndex = 6;
+            this.txtTietLT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTietLT_KeyPress);
             // 
             // txtTenMH
             // 
@@ -151,9 +156,9 @@
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.btnAdd);
-            this.panel2.Location = new System.Drawing.Point(12, 362);
+            this.panel2.Location = new System.Drawing.Point(12, 497);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(858, 100);
+            this.panel2.Size = new System.Drawing.Size(1338, 100);
             this.panel2.TabIndex = 3;
             // 
             // btnCLose
@@ -176,6 +181,7 @@
             this.btnUndo.TabIndex = 3;
             this.btnUndo.Text = "Phục hồi";
             this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // btnUpdate
             // 
@@ -214,21 +220,34 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(247, 493);
+            this.label5.Location = new System.Drawing.Point(445, 600);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(396, 29);
             this.label5.TabIndex = 4;
             this.label5.Text = "HỆ THỐNG QUẢN LÝ MÔN HỌC";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Sienna;
+            this.label6.Location = new System.Drawing.Point(7, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(235, 24);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "DANH SÁCH MÔN HỌC";
+            // 
             // frmMonHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 521);
+            this.ClientSize = new System.Drawing.Size(1350, 638);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvMonHoc);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMonHoc";
             this.Text = "frmMonHoc";
             this.Load += new System.EventHandler(this.frmMonHoc_Load);
@@ -260,5 +279,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

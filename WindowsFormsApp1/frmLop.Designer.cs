@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLop));
             this.dataGridViewLop = new System.Windows.Forms.DataGridView();
             this.lbMaLop = new System.Windows.Forms.Label();
             this.lbTenLop = new System.Windows.Forms.Label();
@@ -44,6 +45,7 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLop)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -51,11 +53,12 @@
             // 
             // dataGridViewLop
             // 
+            this.dataGridViewLop.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewLop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLop.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridViewLop.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewLop.Name = "dataGridViewLop";
-            this.dataGridViewLop.Size = new System.Drawing.Size(800, 200);
+            this.dataGridViewLop.Size = new System.Drawing.Size(1334, 311);
             this.dataGridViewLop.TabIndex = 0;
             this.dataGridViewLop.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLop_CellClick);
             this.dataGridViewLop.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLop_CellContentClick);
@@ -64,7 +67,7 @@
             // 
             this.lbMaLop.AutoSize = true;
             this.lbMaLop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMaLop.Location = new System.Drawing.Point(45, 28);
+            this.lbMaLop.Location = new System.Drawing.Point(12, 33);
             this.lbMaLop.Name = "lbMaLop";
             this.lbMaLop.Size = new System.Drawing.Size(52, 16);
             this.lbMaLop.TabIndex = 1;
@@ -74,7 +77,7 @@
             // 
             this.lbTenLop.AutoSize = true;
             this.lbTenLop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTenLop.Location = new System.Drawing.Point(45, 61);
+            this.lbTenLop.Location = new System.Drawing.Point(723, 32);
             this.lbTenLop.Name = "lbTenLop";
             this.lbTenLop.Size = new System.Drawing.Size(53, 16);
             this.lbTenLop.TabIndex = 2;
@@ -84,7 +87,7 @@
             // 
             this.lbKhoaHoc.AutoSize = true;
             this.lbKhoaHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbKhoaHoc.Location = new System.Drawing.Point(420, 32);
+            this.lbKhoaHoc.Location = new System.Drawing.Point(370, 32);
             this.lbKhoaHoc.Name = "lbKhoaHoc";
             this.lbKhoaHoc.Size = new System.Drawing.Size(63, 16);
             this.lbKhoaHoc.TabIndex = 3;
@@ -94,7 +97,7 @@
             // 
             this.lbKhoa.AutoSize = true;
             this.lbKhoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbKhoa.Location = new System.Drawing.Point(420, 65);
+            this.lbKhoa.Location = new System.Drawing.Point(1100, 33);
             this.lbKhoa.Name = "lbKhoa";
             this.lbKhoa.Size = new System.Drawing.Size(38, 16);
             this.lbKhoa.TabIndex = 4;
@@ -102,21 +105,21 @@
             // 
             // txtMaLop
             // 
-            this.txtMaLop.Location = new System.Drawing.Point(123, 28);
+            this.txtMaLop.Location = new System.Drawing.Point(86, 28);
             this.txtMaLop.Name = "txtMaLop";
             this.txtMaLop.Size = new System.Drawing.Size(255, 20);
             this.txtMaLop.TabIndex = 5;
             // 
             // txtTenLop
             // 
-            this.txtTenLop.Location = new System.Drawing.Point(123, 61);
+            this.txtTenLop.Location = new System.Drawing.Point(801, 32);
             this.txtTenLop.Name = "txtTenLop";
             this.txtTenLop.Size = new System.Drawing.Size(255, 20);
             this.txtTenLop.TabIndex = 6;
             // 
             // txtKhoaHoc
             // 
-            this.txtKhoaHoc.Location = new System.Drawing.Point(512, 32);
+            this.txtKhoaHoc.Location = new System.Drawing.Point(443, 31);
             this.txtKhoaHoc.Name = "txtKhoaHoc";
             this.txtKhoaHoc.Size = new System.Drawing.Size(255, 20);
             this.txtKhoaHoc.TabIndex = 7;
@@ -124,7 +127,7 @@
             // cbKhoa
             // 
             this.cbKhoa.FormattingEnabled = true;
-            this.cbKhoa.Location = new System.Drawing.Point(512, 65);
+            this.cbKhoa.Location = new System.Drawing.Point(1144, 31);
             this.cbKhoa.Name = "cbKhoa";
             this.cbKhoa.Size = new System.Drawing.Size(144, 21);
             this.cbKhoa.TabIndex = 8;
@@ -140,9 +143,9 @@
             this.panel1.Controls.Add(this.lbKhoaHoc);
             this.panel1.Controls.Add(this.txtMaLop);
             this.panel1.Controls.Add(this.lbKhoa);
-            this.panel1.Location = new System.Drawing.Point(0, 206);
+            this.panel1.Location = new System.Drawing.Point(3, 325);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 100);
+            this.panel1.Size = new System.Drawing.Size(1334, 100);
             this.panel1.TabIndex = 9;
             // 
             // panel2
@@ -152,75 +155,103 @@
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.btnAdd);
-            this.panel2.Location = new System.Drawing.Point(0, 312);
+            this.panel2.Location = new System.Drawing.Point(3, 428);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 76);
+            this.panel2.Size = new System.Drawing.Size(1334, 70);
             this.panel2.TabIndex = 10;
             // 
             // btnClose
             // 
+            this.btnClose.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(469, 12);
+            this.btnClose.Image = global::WindowsFormsApp1.Properties.Resources.download__1_2;
+            this.btnClose.Location = new System.Drawing.Point(430, 1);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(103, 69);
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "Thoát";
-            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnUndo
             // 
+            this.btnUndo.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnUndo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUndo.Location = new System.Drawing.Point(346, 12);
+            this.btnUndo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUndo.ImageKey = "(none)";
+            this.btnUndo.Location = new System.Drawing.Point(320, 0);
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(91, 23);
+            this.btnUndo.Size = new System.Drawing.Size(113, 71);
             this.btnUndo.TabIndex = 3;
             this.btnUndo.Text = "Phục hồi";
-            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(233, 12);
+            this.btnUpdate.Image = global::WindowsFormsApp1.Properties.Resources.download1;
+            this.btnUpdate.Location = new System.Drawing.Point(212, 1);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(114, 70);
             this.btnUpdate.TabIndex = 2;
             this.btnUpdate.Text = "Ghi";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(123, 12);
+            this.btnDelete.Image = global::WindowsFormsApp1.Properties.Resources.istockphoto_1351395935_170667a1;
+            this.btnDelete.Location = new System.Drawing.Point(103, 0);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(111, 71);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Xóa";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(12, 12);
+            this.btnAdd.Image = global::WindowsFormsApp1.Properties.Resources.pngtree_button_plus_icon_png_image_3566856;
+            this.btnAdd.Location = new System.Drawing.Point(3, 0);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(103, 70);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm ";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(513, 577);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(331, 29);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "HỆ THÔNG QUẢN LÝ LỚP ";
             // 
             // frmLop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1334, 615);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridViewLop);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmLop";
             this.Text = "frmLop";
             this.Load += new System.EventHandler(this.frmLop_Load);
@@ -229,6 +260,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -250,5 +282,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label1;
     }
 }
